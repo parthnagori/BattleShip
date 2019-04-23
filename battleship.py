@@ -118,12 +118,13 @@ class BattleShip:
         self.board[x][i] = shipRep
 
   def placeAllShipsHuman(self):
-    for ship, shipSize in self.ships.items():
+    for ship, values in self.ships.items():
+      shipSize = values['size']
       valid = False
       while not valid:
         print("Enter the co-ordinates in the format x,y,direction ('d' for down and 'r' for right) eg. (1,4,d)")
         try:
-          x,y,direction = input("Enter co-ordinates and direction where you want to place the {}: ".format(ship)).split(",")      
+          x,y,direction = input("Enter co-ordinates and direction where you want to place the {} ({}): ".format(ship,shipSize)).split(",")      
           x = int(x)
           y = int(y)
         except:
