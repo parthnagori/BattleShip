@@ -43,7 +43,7 @@ class BattleShip:
         if self.board[i][j] == "*":
           self.updateHitProbabilty(i, j)
 
-    self.displayProbMap()
+    # self.displayProbMap()
 
   def getNeighbors(self, x, y):
     adj = [[1,0],[0,1],[-1,0],[0,-1]]
@@ -58,28 +58,29 @@ class BattleShip:
       self.probMap[i][j]*=2
 
   def canShipExist(self, shipSize, x, y, direction):
-    if direction == "d":
-      if y+shipSize < self.boardSize:
+    if direction == "r":
+      if y+shipSize <= self.boardSize:
         if "." not in [self.board[x][i] for i in range(y, y+shipSize)]:
           return True
+      return False
     else:
-      if x+shipSize < self.boardSize:
+      if x+shipSize <= self.boardSize:
         if "." not in [self.board[i][y] for i in range(x, x+shipSize)]:
           return True
-    return False
+      return False
 
   def generateProbabilityValues(self, x, y):
     for ship, values in self.ships.items():
       # if ship already not destroyed
       if self.shipState[values['rep']]:
         # if ship placed downward
-        if self.canShipExist(values['size'], x, y, "d"):
+        if self.canShipExist(values['size'], x, y, "r"):
           for i in range(y, y+values['size']):
             self.probMap[x][i]+=1
         # if ship placed towards right
-        if self.canShipExist(values['size'], x, y, "r"):
+        if self.canShipExist(values['size'], x, y, "d"):
           for i in range(x, x+values['size']):
-            self.probMap[i][x]+=1
+            self.probMap[i][y]+=1
 
   def getBestLocation(self):
     location = [0,0]
@@ -92,7 +93,7 @@ class BattleShip:
     return location        
 
   def isValidCoordinate(self, x, y):
-    return 0 <= x < self.boardSize and 0 <= y <= self.boardSize
+    return 0 <= x < self.boardSize and 0 <= y < self.boardSize
 
   # check if valid placement
   def validPlacement(self, ship, x, y, direction):

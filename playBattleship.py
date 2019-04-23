@@ -26,3 +26,22 @@ if __name__ == "__main__":
     game = Game(boardSize, player1, player2)
 
   game.playGame()
+
+
+  # Uncomment to play multiple CPU games in a go
+  
+  # allGames = []
+  # for i in range(100):
+  #   print("Game : ", i)
+  #   game = Game(10, "CPU1", "CPU2")
+  #   moves = game.playGame()
+  #   allGames.append(moves)
+
+  # import matplotlib.pyplot as plt
+  # plt.xlabel('Number of Moves')
+  # plt.ylabel('Count')
+  # plt.hist(allGames, facecolor='blue', edgecolor='black',linewidth=1.2)
+  # plt.show()
+
+
+

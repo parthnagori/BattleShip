@@ -53,6 +53,7 @@ class Game:
     while not won:
       if player1:
         print("{}'s turn.".format(self.player1Name))
+        self.player2.recalculateHitProbabilities()
         move = False
         while not move:
           if "CPU" in self.player1Name:
@@ -60,7 +61,6 @@ class Game:
           else:
             x,y = self.getTargetHuman()
           move = self.player2.hitTarget(x,y)
-          self.player2.recalculateHitProbabilities()
         player1 = False
         self.player2.displayBoard()
         if self.player2.shipCount == 0:
@@ -69,6 +69,7 @@ class Game:
         c1+=1
       else:
         print("{}'s turn.".format(self.player2Name))
+        self.player1.recalculateHitProbabilities()
         move = False
         while not move:
           if "CPU" in self.player2Name:
@@ -76,7 +77,6 @@ class Game:
           else:
             x,y = self.getTargetHuman()
           move = self.player1.hitTarget(x,y)
-          self.player1.recalculateHitProbabilities()
         player1 = True
         self.player1.displayBoard()
         if self.player1.shipCount == 0:
@@ -84,3 +84,4 @@ class Game:
           won = True
         c2+=1
       print("Moves made Player 1 : {} and Player 2: {}".format(c1, c2))
+    return max(c1, c2)
