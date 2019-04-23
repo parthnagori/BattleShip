@@ -35,11 +35,15 @@ class Game:
         valid = True
     return x,y
 
-  def getTargetComputer(self):
+  def getTargetComputer(self, player):
     valid = False
-    x = random.randint(0,self.boardSize-1)
-    y = random.randint(0,self.boardSize-1)
-    return x,y
+    if player.firstHitMade:
+      print("\nMaking AI Move")
+      return player.getBestLocation()
+    else:
+      x = random.randint(0,self.boardSize-1)
+      y = random.randint(0,self.boardSize-1)
+      return [x,y]
 
   def playGame(self):
     self.fillBoards()
@@ -52,10 +56,11 @@ class Game:
         move = False
         while not move:
           if "CPU" in self.player1Name:
-            x,y = self.getTargetComputer()
+            x,y = self.getTargetComputer(self.player2)
           else:
             x,y = self.getTargetHuman()
           move = self.player2.hitTarget(x,y)
+          self.player2.recalculateHitProbabilities()
         player1 = False
         self.player2.displayBoard()
         if self.player2.shipCount == 0:
@@ -67,10 +72,11 @@ class Game:
         move = False
         while not move:
           if "CPU" in self.player2Name:
-            x,y = self.getTargetComputer()
+            x,y = self.getTargetComputer(self.player1)
           else:
             x,y = self.getTargetHuman()
           move = self.player1.hitTarget(x,y)
+          self.player1.recalculateHitProbabilities()
         player1 = True
         self.player1.displayBoard()
         if self.player1.shipCount == 0:
