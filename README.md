@@ -1,6 +1,8 @@
 # BattleShip
 
-BattleShip Game Playing AI. Current implementation only supports a randomized move/hit.
+BattleShip Game Playing AI. 
+AI works by calculating a Probability Density Function at the beginning of every move.
+For every location on the board, a probability of containing a ship is calculated, and next move is determined. 
 
 ### To Run
 
