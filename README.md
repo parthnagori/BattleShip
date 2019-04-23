@@ -10,5 +10,5 @@ BattleShip Game Playing AI. Current implementation only supports a randomized mo
 
 ![Distribution](https://raw.githubusercontent.com/parthnagori/BattleShip/master/battleship.png)
 
-
+Average number of moves to win: 50
 
